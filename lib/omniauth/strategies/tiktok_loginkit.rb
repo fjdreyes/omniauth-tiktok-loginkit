@@ -24,6 +24,8 @@ module OmniAuth
       }
       option "scope", "user.info.basic"
 
+      option :disable_auto_auth, 0
+
       uid { access_token.params.fetch("open_id") }
 
       # https://github.com/omniauth/omniauth/wiki/Auth-Hash-Schema
@@ -52,6 +54,7 @@ module OmniAuth
       def authorize_params
         super.tap do |params|
           params[:client_key] = options.client_key
+          params[:disable_auto_auth] = options.disable_auto_auth
         end
       end
 
